@@ -10,6 +10,7 @@ using std::vector;
 using std::map;
 using std::to_string;
 using std::cout;
+using std::cin;
 using std::endl;
 using std::ifstream;
 using std::cerr;
@@ -461,7 +462,12 @@ void freeInstructions(vector<Instruction*>& instructions) {
 */
 int main() {
     vector<Instruction*> instructions;
-    ifstream inputFile("large_input.txt"); 
+
+    string fileName;
+    cout << "Enter the name of the input file: ";
+    cin >> fileName;
+
+    ifstream inputFile(fileName);
 
     if (!inputFile.is_open()) {
         cerr << "Failed to read file. Aborting program." << endl;
@@ -489,7 +495,7 @@ int main() {
         {"registerAgg", 16}
     };
 
-    vector<int> cacheMem(32, 2); 
+    vector<int> cacheMem(32, 2);
 
     Tomasulo tomasulo(instructions, values);
     tomasulo.run();

@@ -1,5 +1,4 @@
 #Simulador do Algoritmo de Tomasulo
-##Sobre
 Este simulador na linguagem C++ apresenta 4 classes principais:
 ### Instruction
 Responsável pelos dados de instrução, bem como verificar se estes estão em execução ou já foram executados, bem como armazenar o número de ciclos restantes.
@@ -45,6 +44,6 @@ cpp
 
 #Autores
 
-- [Daniel] (https://github.com/Daniellucasm)
-- [Davi] (https://github.com/davebraga)
-- [Gabriel] (https://github.com/Gufdoor)
+- Daniel Lucas (https://github.com/Daniellucasm)
+- Davi Braga (https://github.com/davebraga)
+- Gabriel Luna (https://github.com/Gufdoor)

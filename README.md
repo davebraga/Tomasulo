@@ -23,11 +23,8 @@ Ao abrir o arquivo, este irá aguardar a seleção de um arquivo .txt com o coma
 text
 
 add F1 F2 F3
-
 sw F1 670 R1
-
 sub F1 F3 F2
-
 mul F1 F2 F3
 
 Junto do código há exemplos de inputs a serem utilizados para teste

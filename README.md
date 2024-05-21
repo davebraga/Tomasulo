@@ -14,17 +14,21 @@ Além da main(), é possivel encontrar outras funções
 ##Inicializando
 Para a execução do algoritmo, é preciso inicialmente compilar o projeto, no qual pode ser feito executando o seguinte comando no terminal:
 
+```
 g++ tomasulo.cpp -o tomasulo 
+```
 
 Uma vez compilado, você pode abrir o executavel gerado clicando no arquivo ou através do terminal.
 
 Ao abrir o arquivo, este irá aguardar a seleção de um arquivo .txt com o comando em Assembly separados por espaços para poder ser executado.**Os comandos aceitos são add, mul, sub e sw**, conforme apresentado no exemplo abaixo:
+
 ```
 add F1 F2 F3
 sw F1 670 R1
 sub F1 F3 F2
 mul F1 F2 F3
 ```
+
 Junto do código há exemplos de inputs a serem utilizados para teste
 
 #Configurações
@@ -42,6 +46,7 @@ Junto do código há exemplos de inputs a serem utilizados para teste
     };
 
 ```
+
 ## Autores
 
 - Daniel Lucas (https://github.com/Daniellucasm)

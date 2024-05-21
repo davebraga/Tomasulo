@@ -8,10 +8,9 @@ Como propriamente dito, se trata da simulação de uma Unidade Funcional (ou FU)
 ### Register
 Armazena os valores temporários gerados durante a execução do algoritmo, bem como o status de ocupação durante a leitura ou escrita.
 ### Tomasulo
-Esta classe é responsável por contruir as três classes apresentasas acima e executar o algoritmo com os comandos oferecidos no arquivo .txt do input
+Esta classe é responsável por contruir as três classes apresentadas acima e executar o algoritmo com os comandos oferecidos no arquivo .txt do input
 
-Além da main(), é possivel encontrar outras funções  
-##Inicializando
+## Inicializando
 Para a execução do algoritmo, é preciso inicialmente compilar o projeto, no qual pode ser feito executando o seguinte comando no terminal:
 
 ```
@@ -31,19 +30,19 @@ mul F1 F2 F3
 
 Junto do código há exemplos de inputs a serem utilizados para teste
 
-#Configurações
+# Configurações
 É possivel alterar as configurações de parametros do simulador como o número de unidades funcionais e latência de cada fução aceita dentro da main() no arquivo tomasulo.cpp , conforme mostrado a seguir:
 
 ```
-   map<string, int> values = {
-        {"addFULatency", 3},
-        {"mulFULatency", 10},
-        {"swFULatency", 2},
-        {"addFUAgg", 3},
-        {"mulFUAgg", 2},
-        {"swFUAgg", 2},
-        {"registerAgg", 16}
-    };
+map<string, int> values = {
+   {"addFULatency", 3},
+   {"mulFULatency", 10},
+   {"swFULatency", 2},
+   {"addFUAgg", 3},
+   {"mulFUAgg", 2},
+   {"swFUAgg", 2},
+   {"registerAgg", 16}
+};
 
 ```
 

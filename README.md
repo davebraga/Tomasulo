@@ -45,6 +45,6 @@ cpp
 
 #Autores
 
-- [Daniel Murta] (https://github.com/Daniellucasm)
-- [Davi Braga] (https://github.com/davebraga)
-- [Gabriel Luna] (https://github.com/Gufdoor)
+- [Daniel] (https://github.com/Daniellucasm)
+- [Davi] (https://github.com/davebraga)
+- [Gabriel] (https://github.com/Gufdoor)

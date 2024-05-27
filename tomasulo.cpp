@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <iomanip>
+#include <string>
 
 // Declaring standard namespaces
 using std::string;
@@ -15,6 +17,10 @@ using std::endl;
 using std::ifstream;
 using std::cerr;
 using std::istringstream;
+using std::ios;
+using std::setfill;
+using std::setw;
+using std::left;
 
 // Class responsible for instruction data
 class Instruction {
@@ -200,8 +206,8 @@ class Tomasulo {
                 }
 
                 Register* destRegister = getRegister(instruction->targetRegister);
-                Register* src1Register = aux;
-                Register* src2Register = getRegister(instruction->operandTwo);
+                Register* operandOneRegister = aux;
+                Register* operandTwoRegister = getRegister(instruction->operandTwo);
 
                 // False dependency handler
                 if (destRegister->isReading || destRegister->isWriting) {
@@ -209,7 +215,7 @@ class Tomasulo {
                 }
 
                 // True dependency handler
-                if (!src1Register->isWriting && !src2Register->isWriting) {
+                if (!operandOneRegister->isWriting && !operandTwoRegister->isWriting) {
                     instruction->isExecuting = true;
                     instruction->cyclesLeft = unit->latencyCycles;
 
@@ -220,11 +226,11 @@ class Tomasulo {
                     destRegister->isWriting = true;
                     destRegister->instruction = instruction;
 
-                    src1Register->isReading = true;
-                    src1Register->instruction = instruction;
+                    operandOneRegister->isReading = true;
+                    operandOneRegister->instruction = instruction;
 
-                    src2Register->isReading = true;
-                    src2Register->instruction = instruction;
+                    operandTwoRegister->isReading = true;
+                    operandTwoRegister->instruction = instruction;
                 }
             }
         }
@@ -404,32 +410,63 @@ class Tomasulo {
     * Show status of the current cycle which is being executed.
     */
     void showCycleStatus() {
-        cout << "\n@ Status: cycle " << currentCycle << "\n";
-        cout << "\nInstructions read: ";
+        cout << setfill('.');
+        string auxInstructions;
+        string auxRegisters;
+        
+        cout << "\n@ Status: cycle " << currentCycle << endl;
+        cout << "\nInstructions read: " << endl;
         for (size_t i = 0; i < instructions.size(); i++) {
             if (instructions[i]->isIssued) {
-                cout << "\n" << instructions[i]->operation << " " << instructions[i]->targetRegister
-                          << " " << instructions[i]->operandOne << " " << instructions[i]->operandTwo;
+                auxInstructions = instructions[i]->operation + " " + instructions[i]->targetRegister
+                          + " " + instructions[i]->operandOne + " " + instructions[i]->operandTwo;
+                auxRegisters = " Correspondent values: " + getRegisterValueByInstruction(instructions[i]->targetRegister) 
+                + " " + getRegisterValueByInstruction(instructions[i]->operandOne) + " " + 
+                getRegisterValueByInstruction(instructions[i]->operandTwo);
+                cout << left << setw(30) << auxInstructions << auxRegisters << endl;
             }
         }
 
-        cout << "\n\nInstructions executing:";
+        cout << "\nInstructions executing:" << endl;
         for (size_t i = 0; i < instructions.size(); i++) {
             if (instructions[i]->isExecuting) {
-                cout << "\n" << instructions[i]->operation << " " << instructions[i]->targetRegister
-                          << " " << instructions[i]->operandOne << " " << instructions[i]->operandTwo;
+                auxInstructions = instructions[i]->operation + " " + instructions[i]->targetRegister
+                          + " " + instructions[i]->operandOne + " " + instructions[i]->operandTwo;
+                auxRegisters = " Correspondent values: " + getRegisterValueByInstruction(instructions[i]->targetRegister) 
+                + " " + getRegisterValueByInstruction(instructions[i]->operandOne) + " " + 
+                getRegisterValueByInstruction(instructions[i]->operandTwo);
+                cout << left << setw(30) << auxInstructions << auxRegisters << endl;
             }
         }
 
-        cout << "\n\nInstructions finished:";
+        cout << "\nInstructions finished:" << endl;
         for (size_t i = 0; i < instructions.size(); i++) {
             if (instructions[i]->isDone) {
-                cout << "\n" << instructions[i]->operation << " " << instructions[i]->targetRegister
-                          << " " << instructions[i]->operandOne << " " << instructions[i]->operandTwo;
+                auxInstructions = instructions[i]->operation + " " + instructions[i]->targetRegister
+                          + " " + instructions[i]->operandOne + " " + instructions[i]->operandTwo;
+                auxRegisters = " Correspondent values: " + getRegisterValueByInstruction(instructions[i]->targetRegister) 
+                + " " + getRegisterValueByInstruction(instructions[i]->operandOne) + " " + 
+                getRegisterValueByInstruction(instructions[i]->operandTwo);
+                cout << left << setw(30) << auxInstructions << auxRegisters << endl;
+            }
+        }
+    }
+
+    /**
+    * Identifies an existing relation between Instructions and Registers vectors and
+    * returns it's value. If none is found, the parameter is returned instead.
+    *
+    * @param name name of a register. Used as an ID.
+    * @return register name or parameter.
+    */
+    string getRegisterValueByInstruction(string name) {
+        for (size_t i = 0; i < registers.size(); i++) {
+            if (registers[i]->name.compare(name) == 0) {
+                return to_string(registers[i]->value);
             }
         }
 
-        cout << endl;
+        return name;
     }
 
     /**
@@ -443,7 +480,7 @@ class Tomasulo {
             showCycleStatus();
             currentCycle++;
         }
-        cout << "\nFinished. Terminating program.\n";
+        cout << "\nFinished. Terminating program." << endl;
     }
 };
 
